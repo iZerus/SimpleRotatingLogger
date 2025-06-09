@@ -14,6 +14,7 @@ use Psr\Log\Test\TestLogger;
 class LogTest extends TestCase
 {
     private TestLogger $logger;
+
     protected function setUp(): void
     {
         $this->logger = new TestLogger();
