@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace Izerus\SimpleRotatingLogger;
 
+use LogicException;
 use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 final class Log
 {
-    private static Logger $logger;
+    private static LoggerInterface $logger;
 
     public static function build(LogBuilder $builder): void
     {
-        self::$logger = $builder->buildLogger();
+        self::setLogger($builder->buildLogger());
     }
 
     public static function debug(string $message, array $context = []): void
@@ -54,9 +56,21 @@ final class Log
         self::$logger->emergency($message, $context);
     }
 
-    public static function getLogger(string $name = null): Logger
+    public static function getLogger(string $name = null): LoggerInterface
     {
-        return $name !== null ? self::$logger->withName($name) : self::$logger;
+        if ($name === null) {
+            return self::$logger;
+        }
+        $logger = self::$logger;
+        if ($logger instanceof Logger) {
+            return $logger->withName($name);
+        }
+        throw new LogicException('Object in not instance of ' . Logger::class);
+    }
+
+    public static function setLogger(LoggerInterface $logger): void
+    {
+        self::$logger = $logger;
     }
 
 }
