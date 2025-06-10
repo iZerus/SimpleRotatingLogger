@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
 declare(strict_types=1);
 
 use Izerus\SimpleRotatingLogger\Log;
@@ -9,7 +10,6 @@ use Psr\Log\Test\TestLogger;
 
 /**
  * @coversDefaultClass Izerus\SimpleRotatingLogger\Log
- * @uses Izerus\SimpleRotatingLogger\LogBuilder
  */
 class LogTest extends TestCase
 {
@@ -33,7 +33,6 @@ class LogTest extends TestCase
 
     /**
      * @covers ::debug
-     * @covers ::setLogger
      */
     public function testDebug(): void
     {
@@ -43,7 +42,6 @@ class LogTest extends TestCase
 
     /**
      * @covers ::info
-     * @covers ::setLogger
      */
     public function testInfo(): void
     {
@@ -53,7 +51,6 @@ class LogTest extends TestCase
 
     /**
      * @covers ::notice
-     * @covers ::setLogger
      */
     public function testNotice(): void
     {
@@ -63,7 +60,6 @@ class LogTest extends TestCase
 
     /**
      * @covers ::warning
-     * @covers ::setLogger
      */
     public function testWarning(): void
     {
@@ -73,7 +69,6 @@ class LogTest extends TestCase
 
     /**
      * @covers ::error
-     * @covers ::setLogger
      */
     public function testError(): void
     {
@@ -83,7 +78,6 @@ class LogTest extends TestCase
 
     /**
      * @covers ::critical
-     * @covers ::setLogger
      */
     public function testCritical(): void
     {
@@ -93,7 +87,6 @@ class LogTest extends TestCase
 
     /**
      * @covers ::alert
-     * @covers ::setLogger
      */
     public function testAlert(): void
     {
@@ -103,7 +96,6 @@ class LogTest extends TestCase
 
     /**
      * @covers ::emergency
-     * @covers ::setLogger
      */
     public function testEmergency(): void
     {
@@ -113,7 +105,6 @@ class LogTest extends TestCase
 
     /**
      * @covers ::getLogger
-     * @covers ::setLogger
      */
     public function testGetLogWithName(): void
     {
@@ -125,7 +116,6 @@ class LogTest extends TestCase
 
     /**
      * @covers ::getLogger
-     * @covers ::setLogger
      */
     public function testGetLogWithNameForNonLoggerObject(): void
     {
@@ -135,8 +125,6 @@ class LogTest extends TestCase
 
     /**
      * @covers ::build
-     * @covers ::setLogger
-     * @covers ::getLogger
      */
     public function testBuild(): void
     {
