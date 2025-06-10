@@ -37,13 +37,13 @@
     },
     "scripts": {
         "test": [
-            "@php vendor/bin/phpunit"
+            "@php vendor/bin/phpunit --colors=always"
         ],
         "coverage": [
-            "@php vendor/bin/phpunit --coverage-text"
+            "@php vendor/bin/phpunit --colors=always --coverage-text"
         ],
         "coverage:html": [
-            "@php vendor/bin/phpunit --coverage-html .phpunit-coverage"
+            "@php vendor/bin/phpunit --colors=always --coverage-html=.phpunit-coverage-report"
         ]
     }
 }
