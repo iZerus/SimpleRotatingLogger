@@ -37,13 +37,13 @@
     },
     "scripts": {
         "test": [
-            "vendor/bin/phpunit"
+            "@php vendor/bin/phpunit"
         ],
         "coverage": [
-            "vendor/bin/phpunit --coverage-text"
+            "@php vendor/bin/phpunit --coverage-text"
         ],
         "coverage:html": [
-            "vendor/bin/phpunit --coverage-html .phpunit-coverage"
+            "@php vendor/bin/phpunit --coverage-html .phpunit-coverage"
         ]
     }
 }
