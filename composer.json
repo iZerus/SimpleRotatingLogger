@@ -2,6 +2,7 @@
     "name": "izerus/simple-rotating-logger",
     "type": "library",
     "license": "MIT",
+    "description": "Monolog, but simpler: Static syntax (Log::info()) + automatic log rotation by file size.",
     "keywords": [
         "monolog",
         "logger",
