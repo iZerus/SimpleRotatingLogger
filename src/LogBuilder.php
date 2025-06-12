@@ -22,15 +22,13 @@ class LogBuilder
     /** @var ProcessorInterface[] */
     private array $processors = [];
     private string $name;
-    private bool $registerInErrorHandler;
 
     public function __construct(
         string             $path,
         int                $level = Logger::DEBUG,
         int                $maxFiles = self::DEFAULT_MAX_FILES,
         int                $maxFileSize = self::DEFAULT_MAX_FILE_SIZE,
-        FormatterInterface $formatter = null,
-        bool               $registerInErrorHandler = true
+        FormatterInterface $formatter = null
     )
     {
         $this->addProcessor(new PsrLogMessageProcessor());
@@ -41,7 +39,6 @@ class LogBuilder
             $maxFileSize,
             $formatter ?? $this->createDefaultFormatter()
         );
-        $this->registerInErrorHandler = $registerInErrorHandler;
         $this->setName('local');
     }
 
@@ -98,9 +95,7 @@ class LogBuilder
     public function buildLogger(): Logger
     {
         $logger = new Logger($this->name, $this->handlers, $this->processors);
-        if ($this->registerInErrorHandler) {
-            ErrorHandler::register($logger);
-        }
+        ErrorHandler::register($logger);
         return $logger;
     }
 }
