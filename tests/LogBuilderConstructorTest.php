@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 
 use Izerus\SimpleRotatingLogger\LogBuilder;
-use Monolog\Formatter\FormatterInterface;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\LineFormatter;
 use Monolog\Logger;
-use Monolog\Processor\PsrLogMessageProcessor;
 use PHPUnit\Framework\TestCase;
 use sgoettsch\monologRotatingFileHandler\Handler\monologRotatingFileHandler as RotatingFileHandler;
 

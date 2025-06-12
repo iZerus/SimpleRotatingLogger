@@ -4,10 +4,10 @@ declare(strict_types=1);
 use Izerus\SimpleRotatingLogger\LogBuilder;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
-use Monolog\Processor\PsrLogMessageProcessor;
-use sgoettsch\monologRotatingFileHandler\Handler\monologRotatingFileHandler as RotatingFileHandler;
 use Monolog\Logger;
+use Monolog\Processor\PsrLogMessageProcessor;
 use PHPUnit\Framework\TestCase;
+use sgoettsch\monologRotatingFileHandler\Handler\monologRotatingFileHandler as RotatingFileHandler;
 
 /**
  * @coversDefaultClass \Izerus\SimpleRotatingLogger\LogBuilder
