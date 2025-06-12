@@ -12,21 +12,20 @@ use PHPUnit\Framework\TestCase;
 class LogBuilderTest extends TestCase
 {
     const LOG_PATH = __DIR__ . '/foo.log';
-    const LOG_PATH_BAR = __DIR__ . '/bar.log';
     /**
      * @covers ::addFileHandler
      */
     public function testAddFileHandler()
     {
-        $handlers = (new LogBuilder(
-            self::LOG_PATH
-        ))->addFileHandler(self::LOG_PATH_BAR, Logger::WARNING)->buildLogger()->getHandlers();
-        $this->assertCount(2, $handlers);
+        $handlers = (new LogBuilder(self::LOG_PATH))
+            ->addFileHandler(self::LOG_PATH, Logger::WARNING)
+            ->addFileHandler(self::LOG_PATH, Logger::ERROR)
+            ->buildLogger()->getHandlers();
         $accepted = 0;
         foreach ($handlers as $handler) {
             $this->assertInstanceOf(RotatingFileHandler::class, $handler);
-            $accepted += in_array($handler->getLevel(), [Logger::DEBUG, Logger::WARNING]);
+            $accepted += in_array($handler->getLevel(), [Logger::DEBUG, Logger::WARNING, Logger::ERROR]);
         }
-        $this->assertEquals(2, $accepted);
+        $this->assertEquals(3, $accepted);
     }
 }
