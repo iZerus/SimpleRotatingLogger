@@ -48,11 +48,9 @@ class LogBuilder
         $this->setName('local');
     }
 
-    /** @deprecated  */
-    public function addProcessor(ProcessorInterface $processor): self
+    private function addProcessor(ProcessorInterface $processor)
     {
         $this->processors[] = $processor;
-        return $this;
     }
 
     public function addFileHandler(
@@ -70,8 +68,7 @@ class LogBuilder
         return $this;
     }
 
-    /** @deprecated  */
-    public function createDefaultFormatter(): FormatterInterface
+    private function createDefaultFormatter(): FormatterInterface
     {
         return new LineFormatter(
             null,
@@ -82,11 +79,9 @@ class LogBuilder
         );
     }
 
-    /** @deprecated  */
-    public function addHandler(HandlerInterface $handler): self
+    private function addHandler(HandlerInterface $handler)
     {
         $this->handlers[] = $handler;
-        return $this;
     }
 
     public function setName(string $name): self
