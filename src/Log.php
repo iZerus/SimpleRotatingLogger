@@ -7,10 +7,16 @@ use LogicException;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
+/**
+ * A facade for using a logger
+ */
 final class Log
 {
     private static LoggerInterface $logger;
 
+    /**
+     * Build a logger using a builder
+     */
     public static function build(LogBuilder $builder): void
     {
         self::setLogger($builder->buildLogger());
