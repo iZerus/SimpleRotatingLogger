@@ -27,8 +27,7 @@ class LogBuilder
         string             $path,
         int                $level = Logger::DEBUG,
         int                $maxFiles = self::DEFAULT_MAX_FILES,
-        int                $maxFileSize = self::DEFAULT_MAX_FILE_SIZE,
-        FormatterInterface $formatter = null
+        int                $maxFileSize = self::DEFAULT_MAX_FILE_SIZE
     )
     {
         $this->addProcessor(new PsrLogMessageProcessor());
@@ -36,8 +35,7 @@ class LogBuilder
             $path,
             $level,
             $maxFiles,
-            $maxFileSize,
-            $formatter ?? $this->createDefaultFormatter()
+            $maxFileSize
         );
         $this->setName('local');
     }
@@ -51,13 +49,12 @@ class LogBuilder
         string             $path,
         int                $level = Logger::DEBUG,
         int                $maxFiles = self::DEFAULT_MAX_FILES,
-        int                $maxFileSize = self::DEFAULT_MAX_FILE_SIZE,
-        FormatterInterface $formatter = null
+        int                $maxFileSize = self::DEFAULT_MAX_FILE_SIZE
     ): self
     {
         /** @noinspection PhpUnhandledExceptionInspection */
         $handler = new RotatingFileHandler($path, $maxFiles, $maxFileSize, $level);
-        $handler->setFormatter($formatter ?? $this->createDefaultFormatter());
+        $handler->setFormatter($this->createDefaultFormatter());
         $this->addHandler($handler);
         return $this;
     }
@@ -84,10 +81,10 @@ class LogBuilder
         return $this;
     }
 
-    public function addStdoutHandler(int $level = Logger::DEBUG, FormatterInterface $formatter = null): self
+    public function addStdoutHandler(int $level = Logger::DEBUG): self
     {
         $handler = new StreamHandler('php://stdout', $level);
-        $handler->setFormatter($formatter ?? $this->createDefaultFormatter());
+        $handler->setFormatter($this->createDefaultFormatter());
         $this->addHandler($handler);
         return $this;
     }

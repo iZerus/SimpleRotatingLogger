@@ -99,36 +99,4 @@ class LogBuilderConstructorTest extends TestCase
         ))->buildLogger()->popHandler();
         $this->assertSame($maxFileSize, $this->getPrivateProperty($handler, 'maxFileSize'));
     }
-
-    /**
-     * @covers ::__construct
-     * @dataProvider formatterProvider
-     */
-    public function testConstructWithFormatter(?FormatterInterface $formatter)
-    {
-        /** @var RotatingFileHandler $handler */
-        $handler = (new LogBuilder(
-            self::LOG_PATH,
-            Logger::DEBUG,
-            LogBuilder::DEFAULT_MAX_FILES,
-            LogBuilder::DEFAULT_MAX_FILE_SIZE,
-            $formatter
-        ))->buildLogger()->popHandler();
-        $createdFormatter = $handler->getFormatter();
-        if ($formatter === null) {
-            // Default formatter
-            $this->assertInstanceOf(LineFormatter::class, $createdFormatter);
-        } else {
-            $this->assertInstanceOf(get_class($formatter), $createdFormatter);
-        }
-    }
-
-    public function formatterProvider(): array
-    {
-        return [
-            [null],
-            [new JsonFormatter()]
-        ];
-    }
-
 }
