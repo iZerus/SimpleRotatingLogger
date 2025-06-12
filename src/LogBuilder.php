@@ -48,6 +48,7 @@ class LogBuilder
         $this->setName('local');
     }
 
+    /** @deprecated  */
     public function addProcessor(ProcessorInterface $processor): self
     {
         $this->processors[] = $processor;
@@ -69,6 +70,7 @@ class LogBuilder
         return $this;
     }
 
+    /** @deprecated  */
     public function createDefaultFormatter(): FormatterInterface
     {
         return new LineFormatter(
@@ -80,6 +82,7 @@ class LogBuilder
         );
     }
 
+    /** @deprecated  */
     public function addHandler(HandlerInterface $handler): self
     {
         $this->handlers[] = $handler;

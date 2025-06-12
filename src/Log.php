@@ -41,16 +41,19 @@ final class Log
         self::$logger->error($message, $context);
     }
 
+    /** @deprecated  */
     public static function critical(string $message, array $context = []): void
     {
         self::$logger->critical($message, $context);
     }
 
+    /** @deprecated  */
     public static function alert(string $message, array $context = []): void
     {
         self::$logger->alert($message, $context);
     }
 
+    /** @deprecated  */
     public static function emergency(string $message, array $context = []): void
     {
         self::$logger->emergency($message, $context);
