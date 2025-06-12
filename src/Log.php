@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 
 /**
  * A facade for using a logger
+ * @todo Переписать коммиты на английский
  */
 final class Log
 {
