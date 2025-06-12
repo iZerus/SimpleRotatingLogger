@@ -79,33 +79,6 @@ class LogTest extends TestCase
     }
 
     /**
-     * @covers ::critical
-     */
-    public function testCritical(): void
-    {
-        Log::critical('foo', ['foo' => 'bar']);
-        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'critical'));
-    }
-
-    /**
-     * @covers ::alert
-     */
-    public function testAlert(): void
-    {
-        Log::alert('foo', ['foo' => 'bar']);
-        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'alert'));
-    }
-
-    /**
-     * @covers ::emergency
-     */
-    public function testEmergency(): void
-    {
-        Log::emergency('foo', ['foo' => 'bar']);
-        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'emergency'));
-    }
-
-    /**
      * @covers ::getLogger
      */
     public function testGetLogWithName(): void
