@@ -108,4 +108,14 @@ class LogBuilderConstructorTest extends TestCase
         $logger = (new LogBuilder(self::LOG_PATH,))->buildLogger();
         $this->assertInstanceOf(PsrLogMessageProcessor::class, $logger->popProcessor());
     }
+
+    /**
+     * @covers ::createDefaultFormatter
+     */
+    public function testCreateDefaultFormatter()
+    {
+        $handler = (new LogBuilder(self::LOG_PATH))->buildLogger()->popHandler();
+        /** @var RotatingFileHandler $handler */
+        $this->assertInstanceOf(LineFormatter::class, $handler->getFormatter());
+    }
 }
