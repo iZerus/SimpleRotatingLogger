@@ -131,36 +131,4 @@ class LogBuilderConstructorTest extends TestCase
         ];
     }
 
-    /**
-     * @covers ::__construct
-     * @dataProvider withDefaultProcessorsProvider
-     */
-    public function testConstructWithDefaultProcessors(bool $withDefaultProcessors)
-    {
-        $logger = (new LogBuilder(
-            self::LOG_PATH,
-            Logger::DEBUG,
-            LogBuilder::DEFAULT_MAX_FILES,
-            LogBuilder::DEFAULT_MAX_FILE_SIZE,
-            null,
-            true,
-            $withDefaultProcessors
-        ))->buildLogger();
-        if ($withDefaultProcessors) {
-            $processor = $logger->popProcessor();
-            $this->assertInstanceOf(PsrLogMessageProcessor::class, $processor);
-        } else {
-            $this->expectException(LogicException::class);
-            $logger->popProcessor();
-        }
-    }
-
-    public function withDefaultProcessorsProvider(): array
-    {
-        return [
-            [true],
-            [false]
-        ];
-    }
-
 }

@@ -30,13 +30,10 @@ class LogBuilder
         int                $maxFiles = self::DEFAULT_MAX_FILES,
         int                $maxFileSize = self::DEFAULT_MAX_FILE_SIZE,
         FormatterInterface $formatter = null,
-        bool               $registerInErrorHandler = true,
-        bool               $useDefaultProcessors = true
+        bool               $registerInErrorHandler = true
     )
     {
-        if ($useDefaultProcessors) {
-            $this->addProcessor(new PsrLogMessageProcessor());
-        }
+        $this->addProcessor(new PsrLogMessageProcessor());
         $this->addFileHandler(
             $path,
             $level,
