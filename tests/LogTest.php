@@ -35,47 +35,27 @@ class LogTest extends TestCase
 
     /**
      * @covers ::debug
-     */
-    public function testDebug(): void
-    {
-        Log::debug('foo', ['foo' => 'bar']);
-        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'debug'));
-    }
-
-    /**
      * @covers ::info
-     */
-    public function testInfo(): void
-    {
-        Log::info('foo', ['foo' => 'bar']);
-        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'info'));
-    }
-
-    /**
      * @covers ::notice
-     */
-    public function testNotice(): void
-    {
-        Log::notice('foo', ['foo' => 'bar']);
-        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'notice'));
-    }
-
-    /**
      * @covers ::warning
+     * @covers ::error
+     * @dataProvider levelProvider
      */
-    public function testWarning(): void
+    public function testLog(string $level): void
     {
-        Log::warning('foo', ['foo' => 'bar']);
-        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'warning'));
+        Log::{$level}('foo', ['foo' => 'bar']);
+        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], $level));
     }
 
-    /**
-     * @covers ::error
-     */
-    public function testError(): void
+    public function levelProvider(): array
     {
-        Log::error('foo', ['foo' => 'bar']);
-        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'error'));
+        return [
+            ['debug'],
+            ['info'],
+            ['notice'],
+            ['warning'],
+            ['error'],
+        ];
     }
 
     /**
