@@ -6,6 +6,7 @@ use Izerus\SimpleRotatingLogger\Log;
 use Izerus\SimpleRotatingLogger\LogBuilder;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use Psr\Log\Test\TestLogger;
 
 /**
@@ -27,8 +28,9 @@ class LogTest extends TestCase
      */
     public function testSetAndGetLogger(): void
     {
-        Log::setLogger($this->logger);
-        $this->assertSame(Log::getLogger(), $this->logger);
+        $logger = new NullLogger();
+        Log::setLogger($logger);
+        $this->assertSame(Log::getLogger(), $logger);
     }
 
     /**
@@ -36,8 +38,8 @@ class LogTest extends TestCase
      */
     public function testDebug(): void
     {
-        Log::debug('foo');
-        $this->assertTrue($this->logger->hasRecord('foo', 'debug'));
+        Log::debug('foo', ['foo' => 'bar']);
+        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'debug'));
     }
 
     /**
@@ -45,8 +47,8 @@ class LogTest extends TestCase
      */
     public function testInfo(): void
     {
-        Log::info('foo');
-        $this->assertTrue($this->logger->hasRecord('foo', 'info'));
+        Log::info('foo', ['foo' => 'bar']);
+        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'info'));
     }
 
     /**
@@ -54,8 +56,8 @@ class LogTest extends TestCase
      */
     public function testNotice(): void
     {
-        Log::notice('foo');
-        $this->assertTrue($this->logger->hasRecord('foo', 'notice'));
+        Log::notice('foo', ['foo' => 'bar']);
+        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'notice'));
     }
 
     /**
@@ -63,8 +65,8 @@ class LogTest extends TestCase
      */
     public function testWarning(): void
     {
-        Log::warning('foo');
-        $this->assertTrue($this->logger->hasRecord('foo', 'warning'));
+        Log::warning('foo', ['foo' => 'bar']);
+        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'warning'));
     }
 
     /**
@@ -72,8 +74,8 @@ class LogTest extends TestCase
      */
     public function testError(): void
     {
-        Log::error('foo');
-        $this->assertTrue($this->logger->hasRecord('foo', 'error'));
+        Log::error('foo', ['foo' => 'bar']);
+        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'error'));
     }
 
     /**
@@ -81,8 +83,8 @@ class LogTest extends TestCase
      */
     public function testCritical(): void
     {
-        Log::critical('foo');
-        $this->assertTrue($this->logger->hasRecord('foo', 'critical'));
+        Log::critical('foo', ['foo' => 'bar']);
+        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'critical'));
     }
 
     /**
@@ -90,8 +92,8 @@ class LogTest extends TestCase
      */
     public function testAlert(): void
     {
-        Log::alert('foo');
-        $this->assertTrue($this->logger->hasRecord('foo', 'alert'));
+        Log::alert('foo', ['foo' => 'bar']);
+        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'alert'));
     }
 
     /**
@@ -99,8 +101,8 @@ class LogTest extends TestCase
      */
     public function testEmergency(): void
     {
-        Log::emergency('foo');
-        $this->assertTrue($this->logger->hasRecord('foo', 'emergency'));
+        Log::emergency('foo', ['foo' => 'bar']);
+        $this->assertTrue($this->logger->hasRecord(['message' => 'foo', 'context' => ['foo' => 'bar']], 'emergency'));
     }
 
     /**
@@ -119,6 +121,7 @@ class LogTest extends TestCase
      */
     public function testGetLogWithNameForNonLoggerObject(): void
     {
+        Log::setLogger(new TestLogger());
         $this->expectException(LogicException::class);
         Log::getLogger('foo');
     }
@@ -128,12 +131,10 @@ class LogTest extends TestCase
      */
     public function testBuild(): void
     {
-        $builder = new LogBuilder(__DIR__ . '/test.log');
-        $builder->setName('foo');
-        $originalLogger = $builder->buildLogger();
+        $builder = (new LogBuilder(__DIR__ . '/foo.log'))->setName('foo');
         Log::build($builder);
         $logger = Log::getLogger();
         $this->assertInstanceOf(Logger::class, $logger);
-        $this->assertSame($originalLogger->getName(), $logger->getName());
+        $this->assertSame($builder->buildLogger()->getName(), $logger->getName());
     }
 }
