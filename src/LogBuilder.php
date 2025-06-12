@@ -23,10 +23,10 @@ class LogBuilder
     private int $maxFileSize;
 
     public function __construct(
-        string             $path,
-        int                $level = Logger::DEBUG,
-        int                $maxFiles = self::DEFAULT_MAX_FILES,
-        int                $maxFileSize = self::DEFAULT_MAX_FILE_SIZE
+        string $path,
+        int    $level = Logger::DEBUG,
+        int    $maxFiles = self::DEFAULT_MAX_FILES,
+        int    $maxFileSize = self::DEFAULT_MAX_FILE_SIZE
     )
     {
         $this->maxFiles = $maxFiles;
@@ -36,8 +36,8 @@ class LogBuilder
     }
 
     public function addFileHandler(
-        string             $path,
-        int                $level = Logger::DEBUG
+        string $path,
+        int    $level = Logger::DEBUG
     ): self
     {
         /** @noinspection PhpUnhandledExceptionInspection */

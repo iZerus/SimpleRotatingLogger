@@ -15,6 +15,7 @@ use PHPUnit\Framework\TestCase;
 class LogBuilderTest extends TestCase
 {
     const LOG_PATH = __DIR__ . '/foo.log';
+
     /**
      * @covers ::addFileHandler
      */
