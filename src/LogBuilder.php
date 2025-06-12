@@ -9,7 +9,6 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use Monolog\Processor\ProcessorInterface;
 use Monolog\Processor\PsrLogMessageProcessor;
 use sgoettsch\monologRotatingFileHandler\Handler\monologRotatingFileHandler as RotatingFileHandler;
 
@@ -19,8 +18,6 @@ class LogBuilder
     const DEFAULT_MAX_FILE_SIZE = 10485760;
     /** @var HandlerInterface[] */
     private array $handlers = [];
-    /** @var ProcessorInterface[] */
-    private array $processors = [];
     private string $name;
 
     public function __construct(
@@ -30,7 +27,6 @@ class LogBuilder
         int                $maxFileSize = self::DEFAULT_MAX_FILE_SIZE
     )
     {
-        $this->addProcessor(new PsrLogMessageProcessor());
         $this->addFileHandler(
             $path,
             $level,
@@ -38,11 +34,6 @@ class LogBuilder
             $maxFileSize
         );
         $this->setName('local');
-    }
-
-    private function addProcessor(ProcessorInterface $processor)
-    {
-        $this->processors[] = $processor;
     }
 
     public function addFileHandler(
@@ -91,7 +82,9 @@ class LogBuilder
 
     public function buildLogger(): Logger
     {
-        $logger = new Logger($this->name, $this->handlers, $this->processors);
+        $logger = new Logger($this->name, $this->handlers, [
+            new PsrLogMessageProcessor()
+        ]);
         ErrorHandler::register($logger);
         return $logger;
     }
