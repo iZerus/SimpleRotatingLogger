@@ -1,5 +1,4 @@
 <?php
-/** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
 declare(strict_types=1);
 
 use Izerus\SimpleRotatingLogger\Log;
