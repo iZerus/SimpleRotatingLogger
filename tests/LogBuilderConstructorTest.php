@@ -53,8 +53,8 @@ class LogBuilderConstructorTest extends TestCase
     public function levelProvider(): array
     {
         return [
-            [Logger::DEBUG],
-            [Logger::INFO]
+            [Logger::WARNING],
+            [Logger::ERROR]
         ];
     }
 
