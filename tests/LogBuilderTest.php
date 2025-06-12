@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use Izerus\SimpleRotatingLogger\LogBuilder;
 use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
 use sgoettsch\monologRotatingFileHandler\Handler\monologRotatingFileHandler as RotatingFileHandler;
 use Monolog\Logger;
@@ -48,5 +49,37 @@ class LogBuilderTest extends TestCase
         $handler = (new LogBuilder(self::LOG_PATH))->buildLogger()->popHandler();
         /** @var RotatingFileHandler $handler */
         $this->assertInstanceOf(LineFormatter::class, $handler->getFormatter());
+    }
+
+    /**
+     * @covers ::addStdoutHandler
+     * @dataProvider levelProvider
+     */
+    public function testAddStdOutHandler(int $level)
+    {
+        $logger = (new LogBuilder(self::LOG_PATH))
+            ->addStdoutHandler($level)->buildLogger();
+        $logger->popHandler();
+        $handler = $logger->popHandler();
+        $this->assertInstanceOf(StreamHandler::class, $handler);
+        $this->assertSame('php://stdout', $handler->getUrl());
+        $this->assertSame($level, $handler->getLevel());
+    }
+
+    public function levelProvider(): array
+    {
+        return [
+            [Logger::DEBUG],
+            [Logger::INFO]
+        ];
+    }
+
+    /**
+     * @covers ::setName
+     */
+    public function testSetName()
+    {
+        $logger = (new LogBuilder(self::LOG_PATH))->setName('foo')->buildLogger();
+        $this->assertSame('foo', $logger->getName());
     }
 }
