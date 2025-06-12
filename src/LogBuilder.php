@@ -46,7 +46,7 @@ class LogBuilder
         /** @noinspection PhpUnhandledExceptionInspection */
         $handler = new RotatingFileHandler($path, $maxFiles, $maxFileSize, $level);
         $handler->setFormatter($this->createDefaultFormatter());
-        $this->addHandler($handler);
+        $this->handlers[] = $handler;
         return $this;
     }
 
@@ -61,11 +61,6 @@ class LogBuilder
         );
     }
 
-    private function addHandler(HandlerInterface $handler)
-    {
-        $this->handlers[] = $handler;
-    }
-
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -76,7 +71,7 @@ class LogBuilder
     {
         $handler = new StreamHandler('php://stdout', $level);
         $handler->setFormatter($this->createDefaultFormatter());
-        $this->addHandler($handler);
+        $this->handlers[] = $handler;
         return $this;
     }
 
