@@ -99,23 +99,4 @@ class LogBuilderConstructorTest extends TestCase
         ))->buildLogger()->popHandler();
         $this->assertSame($maxFileSize, $this->getPrivateProperty($handler, 'maxFileSize'));
     }
-
-    /**
-     * @covers ::buildLogger
-     */
-    public function testBuildLoggerProcessor()
-    {
-        $logger = (new LogBuilder(self::LOG_PATH,))->buildLogger();
-        $this->assertInstanceOf(PsrLogMessageProcessor::class, $logger->popProcessor());
-    }
-
-    /**
-     * @covers ::createDefaultFormatter
-     */
-    public function testCreateDefaultFormatter()
-    {
-        $handler = (new LogBuilder(self::LOG_PATH))->buildLogger()->popHandler();
-        /** @var RotatingFileHandler $handler */
-        $this->assertInstanceOf(LineFormatter::class, $handler->getFormatter());
-    }
 }

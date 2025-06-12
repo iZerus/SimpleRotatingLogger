@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 use Izerus\SimpleRotatingLogger\LogBuilder;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Processor\PsrLogMessageProcessor;
 use sgoettsch\monologRotatingFileHandler\Handler\monologRotatingFileHandler as RotatingFileHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
@@ -27,5 +29,24 @@ class LogBuilderTest extends TestCase
             $accepted += in_array($handler->getLevel(), [Logger::DEBUG, Logger::WARNING, Logger::ERROR]);
         }
         $this->assertEquals(3, $accepted);
+    }
+
+    /**
+     * @covers ::buildLogger
+     */
+    public function testBuildLoggerProcessor()
+    {
+        $logger = (new LogBuilder(self::LOG_PATH,))->buildLogger();
+        $this->assertInstanceOf(PsrLogMessageProcessor::class, $logger->popProcessor());
+    }
+
+    /**
+     * @covers ::createDefaultFormatter
+     */
+    public function testCreateDefaultFormatter()
+    {
+        $handler = (new LogBuilder(self::LOG_PATH))->buildLogger()->popHandler();
+        /** @var RotatingFileHandler $handler */
+        $this->assertInstanceOf(LineFormatter::class, $handler->getFormatter());
     }
 }
