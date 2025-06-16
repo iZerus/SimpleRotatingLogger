@@ -47,6 +47,21 @@ final class Log
         self::$logger->error($message, $context);
     }
 
+    public static function critical(string $message, array $context = []): void
+    {
+        self::$logger->critical($message, $context);
+    }
+
+    public static function alert(string $message, array $context = []): void
+    {
+        self::$logger->alert($message, $context);
+    }
+
+    public static function emergency(string $message, array $context = []): void
+    {
+        self::$logger->emergency($message, $context);
+    }
+
     public static function getLogger(string $name = null): LoggerInterface
     {
         if ($name === null) {

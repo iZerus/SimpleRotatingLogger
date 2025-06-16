@@ -38,6 +38,9 @@ class LogTest extends TestCase
      * @covers ::notice
      * @covers ::warning
      * @covers ::error
+     * @covers ::critical
+     * @covers ::alert
+     * @covers ::emergency
      * @dataProvider levelProvider
      */
     public function testLog(string $level): void
@@ -54,6 +57,9 @@ class LogTest extends TestCase
             ['notice'],
             ['warning'],
             ['error'],
+            ['critical'],
+            ['alert'],
+            ['emergency'],
         ];
     }
 
