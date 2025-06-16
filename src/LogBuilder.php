@@ -31,7 +31,7 @@ class LogBuilder
         $this->maxFiles = $maxFiles;
         $this->maxFileSize = $maxFileSize;
         $this->addFileHandler($path, $level);
-        $this->setName('app');
+        $this->setName('local');
     }
 
     public function addFileHandler(
