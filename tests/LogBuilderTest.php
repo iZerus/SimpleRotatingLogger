@@ -25,12 +25,14 @@ class LogBuilderTest extends TestCase
             ->addFileHandler(self::LOG_PATH, Logger::WARNING)
             ->addFileHandler(self::LOG_PATH, Logger::ERROR)
             ->buildLogger()->getHandlers();
-        $accepted = 0;
+        $debug = $warning = $error = false;
         foreach ($handlers as $handler) {
             $this->assertInstanceOf(RotatingFileHandler::class, $handler);
-            $accepted += in_array($handler->getLevel(), [Logger::DEBUG, Logger::WARNING, Logger::ERROR]);
+            $debug = $debug || $handler->getLevel() == Logger::DEBUG;
+            $warning = $warning || $handler->getLevel() == Logger::WARNING;
+            $error = $error || $handler->getLevel() == Logger::ERROR;
         }
-        $this->assertEquals(3, $accepted);
+        $this->assertTrue($debug && $warning && $error);
     }
 
     /**
