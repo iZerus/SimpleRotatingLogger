@@ -27,9 +27,6 @@
         "sgoettsch/monolog-rotating-file-handler": "^2.0"
     },
     "config": {
-        "platform": {
-            "php": "7.4"
-        },
         "sort-packages": true
     },
     "require-dev": {
