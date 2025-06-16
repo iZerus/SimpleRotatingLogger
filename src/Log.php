@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Izerus\SimpleRotatingLogger;
 
 use LogicException;
+use Monolog\ErrorHandler;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
@@ -77,6 +78,7 @@ final class Log
     public static function setLogger(LoggerInterface $logger): void
     {
         self::$logger = $logger;
+        ErrorHandler::register($logger);
     }
 
 }

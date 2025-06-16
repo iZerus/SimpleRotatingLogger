@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Izerus\SimpleRotatingLogger;
 
-use Monolog\ErrorHandler;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\HandlerInterface;
@@ -74,10 +73,8 @@ class LogBuilder
 
     public function buildLogger(): Logger
     {
-        $logger = new Logger($this->name, $this->handlers, [
+        return new Logger($this->name, $this->handlers, [
             new PsrLogMessageProcessor()
         ]);
-        ErrorHandler::register($logger);
-        return $logger;
     }
 }
