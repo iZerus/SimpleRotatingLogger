@@ -7,7 +7,9 @@ use Izerus\SimpleRotatingLogger\Log;
 use Izerus\SimpleRotatingLogger\LogBuilder;
 use Monolog\Logger;
 
-$builder = new LogBuilder(__DIR__ . '/latest.log', Logger::DEBUG);
+$maxFiles = 9;
+$maxFileSize = 10485760;
+$builder = new LogBuilder(__DIR__ . '/latest.log', Logger::DEBUG, $maxFiles, $maxFileSize);
 $builder
     ->addFileHandler(__DIR__ . '/error.log', Logger::ERROR)
     ->addStdoutHandler(Logger::NOTICE)
