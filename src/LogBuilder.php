@@ -34,16 +34,15 @@ class LogBuilder
         $this->setName('local');
     }
 
-    public function addFileHandler(
+    private function addFileHandler(
         string $path,
         int    $level = Logger::DEBUG
-    ): self
+    ): void
     {
         /** @noinspection PhpUnhandledExceptionInspection */
         $handler = new RotatingFileHandler($path, $this->maxFiles, $this->maxFileSize, $level);
         $handler->setFormatter($this->createDefaultFormatter());
         $this->handlers[] = $handler;
-        return $this;
     }
 
     private function createDefaultFormatter(): FormatterInterface

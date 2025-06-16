@@ -21,18 +21,10 @@ class LogBuilderTest extends TestCase
      */
     public function testAddFileHandler()
     {
-        $handlers = (new LogBuilder(self::LOG_PATH))
-            ->addFileHandler(self::LOG_PATH, Logger::WARNING)
-            ->addFileHandler(self::LOG_PATH, Logger::ERROR)
-            ->buildLogger()->getHandlers();
-        $debug = $warning = $error = false;
-        foreach ($handlers as $handler) {
-            $this->assertInstanceOf(RotatingFileHandler::class, $handler);
-            $debug = $debug || $handler->getLevel() == Logger::DEBUG;
-            $warning = $warning || $handler->getLevel() == Logger::WARNING;
-            $error = $error || $handler->getLevel() == Logger::ERROR;
-        }
-        $this->assertTrue($debug && $warning && $error);
+        $handler = (new LogBuilder(self::LOG_PATH, Logger::ERROR))
+            ->buildLogger()->popHandler();
+        $this->assertInstanceOf(RotatingFileHandler::class, $handler);
+        $this->assertSame(Logger::ERROR, $handler->getLevel());
     }
 
     /**
