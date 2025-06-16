@@ -18,8 +18,6 @@ class LogBuilder
     /** @var HandlerInterface[] */
     private array $handlers = [];
     private string $name;
-    private int $maxFiles;
-    private int $maxFileSize;
 
     public function __construct(
         string $path,
@@ -28,21 +26,11 @@ class LogBuilder
         int    $maxFileSize = self::DEFAULT_MAX_FILE_SIZE
     )
     {
-        $this->maxFiles = $maxFiles;
-        $this->maxFileSize = $maxFileSize;
-        $this->addFileHandler($path, $level);
-        $this->setName('local');
-    }
-
-    private function addFileHandler(
-        string $path,
-        int    $level = Logger::DEBUG
-    ): void
-    {
         /** @noinspection PhpUnhandledExceptionInspection */
-        $handler = new RotatingFileHandler($path, $this->maxFiles, $this->maxFileSize, $level);
+        $handler = new RotatingFileHandler($path, $maxFiles, $maxFileSize, $level);
         $handler->setFormatter($this->createDefaultFormatter());
         $this->handlers[] = $handler;
+        $this->setName('local');
     }
 
     private function createDefaultFormatter(): FormatterInterface

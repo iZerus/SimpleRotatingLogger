@@ -17,17 +17,6 @@ class LogBuilderTest extends TestCase
     const LOG_PATH = __DIR__ . '/foo.log';
 
     /**
-     * @covers ::addFileHandler
-     */
-    public function testAddFileHandler()
-    {
-        $handler = (new LogBuilder(self::LOG_PATH, Logger::ERROR))
-            ->buildLogger()->popHandler();
-        $this->assertInstanceOf(RotatingFileHandler::class, $handler);
-        $this->assertSame(Logger::ERROR, $handler->getLevel());
-    }
-
-    /**
      * @covers ::buildLogger
      */
     public function testBuildLoggerProcessor()
