@@ -72,7 +72,7 @@ final class Log
         if ($logger instanceof Logger) {
             return $logger->withName($name);
         }
-        throw new LogicException('Object in not instance of ' . Logger::class);
+        throw new LogicException('Object is not instance of ' . Logger::class);
     }
 
     public static function setLogger(LoggerInterface $logger): void
